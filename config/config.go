@@ -4,7 +4,8 @@ import (
 	"fmt"
 	"os"
 
-	"gocloud.dev/postgres"
+	"github.com/akaroth/go-rest-api/pkg/models"
+	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
 
@@ -18,8 +19,9 @@ func Connect() {
 		os.Getenv("DB_PASSWORD"),
 		os.Getenv("DB_NAME"),
 		os.Getenv("DB_PORT"))
-	DB, err = gorm.Open((postgres.Open(dsn)), &gorm.Config{})
+	DB, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
 		panic("Failed to connect to database")
 	}
+	DB.AutoMigrate(&models.User{})
 }
