@@ -20,6 +20,7 @@ func main() {
 	config.Connect()
 	router := mux.NewRouter()
 	router.HandleFunc("/api/health", handlers.HeathCheckHandler).Methods("GET")
+	router.HandleFunc("/api/register", handlers.RegisterHandler).Methods("POST")
 	fmt.Println("Server is running on port 8081")
 	log.Fatal(http.ListenAndServe(":8081", router))
 }
